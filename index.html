@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بحث تسويقي: مشكلة التوزيع في دانون مصر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f6f3;
+    --fg: #1c1c1c;
+    --muted: #5f6670;
+    --accent: #1f6f8b;     /* دانون أزرق */
+    --accent2: #b8430f;
+    --card: #ffffff;
+    --rule: #e3e0db;
+    --code-bg: #f0ede8;
+    --pe-bg: #eef6fb;
+    --pe-bd: #1f6f8b;
+    --shadow: rgba(0,0,0,0.06);
+    --ok-bg: #e6f6e8;
+    --ok-bd: #2e8b57;
+  }
+  html[data-theme="dark"] {
+    --bg: #14171c;
+    --fg: #e7e4dd;
+    --muted: #9aa1ab;
+    --accent: #6cc0e0;
+    --accent2: #f0865a;
+    --card: #1c2027;
+    --rule: #2c323b;
+    --code-bg: #232830;
+    --pe-bg: #16242c;
+    --pe-bd: #6cc0e0;
+    --shadow: rgba(0,0,0,0.4);
+    --ok-bg: #18301f;
+    --ok-bd: #4cae7a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Tajawal", "Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
+    max-width: 900px; margin: 0 auto; padding: 1.5rem 1.2rem 5rem;
+    background: var(--bg); color: var(--fg); line-height: 1.9; font-size: 1.05rem;
+    transition: background .2s, color .2s;
+  }
+  h1, h2, h3 { font-family: "Cairo", "Tajawal", sans-serif; line-height: 1.5; }
+  h1 { font-size: 1.9rem; margin: 2.4rem 0 .6rem; color: var(--accent); }
+  h2 { font-size: 1.4rem; margin-top: 2.2rem; border-bottom: 2px solid var(--accent); padding-bottom: .3rem; }
+  h3 { font-size: 1.12rem; margin-top: 1.5rem; color: var(--accent2); }
+  p { margin: .6rem 0; }
+  a { color: var(--accent); }
+  code { background: var(--code-bg); padding: .05rem .35rem; border-radius: 4px; font-size: .92em; }
+
+  #topControls { position: fixed; top: 12px; left: 14px; z-index: 999; display: flex; gap: 8px; }
+  #topControls button {
+    font-family: "Tajawal", sans-serif; font-size: .85rem; font-weight: 700;
+    background: var(--card); color: var(--fg); border: 1px solid var(--rule);
+    border-radius: 20px; padding: .4rem .9rem; cursor: pointer; box-shadow: 0 2px 8px var(--shadow);
+  }
+  #topControls button:hover { border-color: var(--accent); }
+
+  header.hero {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; border-radius: 16px; padding: 2rem 1.6rem; margin-top: 1.5rem;
+    box-shadow: 0 6px 24px var(--shadow);
+  }
+  header.hero h1 { color: #fff; margin: 0 0 .5rem; font-size: 2rem; }
+  header.hero p { margin: .3rem 0; color: #f2f2f2; }
+  .hero .team { font-size: .95rem; opacity: .92; }
+
+  nav.toc {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 12px;
+    padding: 1rem 1.4rem; margin: 1.6rem 0;
+  }
+  nav.toc strong { color: var(--accent); }
+  nav.toc ul { list-style: none; padding: 0; margin: .6rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  nav.toc a {
+    display: inline-block; background: var(--code-bg); border: 1px solid var(--rule);
+    border-radius: 18px; padding: .35rem .9rem; text-decoration: none; color: var(--fg); font-size: .92rem;
+  }
+  nav.toc a:hover { border-color: var(--accent); color: var(--accent); }
+
+  .pe {
+    background: var(--pe-bg); border-right: 4px solid var(--pe-bd);
+    border-radius: 10px; padding: 1rem 1.2rem; margin: 1rem 0;
+  }
+  .pe h3 { margin-top: 0; color: var(--pe-bd); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 12px;
+    padding: 1.1rem 1.3rem; margin: 1.2rem 0; box-shadow: 0 2px 10px var(--shadow);
+  }
+  .chapter-num {
+    display: inline-block; background: var(--accent); color: #fff; font-weight: 700;
+    border-radius: 50%; width: 2rem; height: 2rem; line-height: 2rem; text-align: center;
+    margin-left: .5rem; font-family: "Cairo", sans-serif;
+  }
+  .tag { display: inline-block; background: var(--code-bg); color: var(--muted); border-radius: 12px; padding: .1rem .6rem; font-size: .8rem; margin-inline-start: .4rem; }
+
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .98rem; }
+  th, td { border: 1px solid var(--rule); padding: .55rem .7rem; text-align: right; vertical-align: top; }
+  th { background: var(--code-bg); color: var(--accent); }
+
+  ul.clean { padding-inline-start: 1.4rem; }
+  ul.clean li { margin: .35rem 0; }
+
+  /* Downloads */
+  .downloads { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .dl {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 12px;
+    padding: 1rem 1.1rem; box-shadow: 0 2px 10px var(--shadow); display: flex; flex-direction: column; gap: .5rem;
+  }
+  .dl .icon { font-size: 1.8rem; }
+  .dl .title { font-weight: 700; font-size: 1.05rem; }
+  .dl .desc { color: var(--muted); font-size: .9rem; flex: 1; }
+  .dl .btns { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .3rem; }
+  .dl a.btn {
+    flex: 1; text-align: center; text-decoration: none; font-weight: 700; font-size: .9rem;
+    background: var(--accent); color: #fff; border-radius: 8px; padding: .5rem .6rem; border: 1px solid var(--accent);
+  }
+  .dl a.btn.alt { background: transparent; color: var(--accent); }
+  .dl a.btn:hover { opacity: .9; }
+  .dl.highlight { border: 2px solid var(--accent); }
+
+  .survey-cta {
+    background: var(--ok-bg); border: 1px solid var(--ok-bd); border-radius: 12px;
+    padding: 1.2rem 1.3rem; margin: 1rem 0; text-align: center;
+  }
+  .survey-cta a.big {
+    display: inline-block; background: var(--ok-bd); color: #fff; text-decoration: none; font-weight: 700;
+    border-radius: 10px; padding: .7rem 1.6rem; margin-top: .5rem; font-size: 1.05rem;
+  }
+
+  .note { color: var(--muted); font-size: .9rem; }
+  footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; text-align: center; }
+
+  @media (max-width: 600px) {
+    body { font-size: 1rem; padding: 1rem .9rem 4rem; }
+    header.hero h1 { font-size: 1.5rem; }
+    #topControls { top: 8px; left: 8px; }
+    #topControls button { font-size: .76rem; padding: .35rem .6rem; }
+  }
+</style>
+<script>
+(function(){
+  try {
+    var saved = localStorage.getItem('danone-theme');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+  } catch(e) {}
+})();
+</script>
+</head>
+<body>
+
+<div id="topControls">
+  <button id="themeToggle" type="button">🌙 الوضع الليلي</button>
+  <button id="printBtn" type="button">🖨️ طباعة / PDF</button>
+</div>
+
+<header class="hero">
+  <h1>مشروع بحث تسويقي: فجوة التوزيع في دانون مصر</h1>
+  <p>تطبيق منهج مالهوترا للبحث التسويقي (الفصول الخمسة) على مشكلة حقيقية لشركة دانون مصر في سوق الألبان والزبادي.</p>
+  <p class="team">إعداد: أحمد صبري، طارق سلامة، أحمد عوض، محمود إبراهيم · مادة بحوث التسويق (EMBA)</p>
+</header>
+
+<nav class="toc">
+  <strong>محتويات الصفحة</strong>
+  <ul>
+    <li><a href="#summary">الملخص في سطور</a></li>
+    <li><a href="#problem">المشكلة وتعريفها</a></li>
+    <li><a href="#ch1">الفصل ١</a></li>
+    <li><a href="#ch2">الفصل ٢</a></li>
+    <li><a href="#ch3">الفصل ٣</a></li>
+    <li><a href="#ch4">الفصل ٤</a></li>
+    <li><a href="#ch5">الفصل ٥</a></li>
+    <li><a href="#files">تحميل كل الملفات</a></li>
+  </ul>
+</nav>
+
+<!-- ============ الملخص ============ -->
+<section id="summary">
+<h1>الملخص في سطور</h1>
+<div class="pe">
+<h3>💡 الفكرة باختصار</h3>
+<p>دانون علامة قوية ومحبوبة (أكتيفيا، دانيت)، لكنها تبيع أقل من المنافس الأكبر <strong>جهينة</strong>. السبب الأساسي ليس جودة المنتج ولا سعره، بل <strong>التوزيع</strong>: منتجات دانون لا تصل إلى عدد كافٍ من <strong>البقالات الصغيرة</strong>، وهي المكان الذي تُحسم فيه معركة الألبان في مصر (تمثل البقالات نحو ٩٦٪ من المنافذ و٧٤٪ من مبيعات الألبان).</p>
+<p>هذا البحث يقيس: <strong>هل غياب دانون عن الرف يضيّع عليها مبيعات فعلية؟</strong> وكم تخسر؟ ولماذا لا يخزّنها صاحب البقالة؟ ثم يوصي دانون: هل توسّع شبكة توزيعها أم لا.</p>
+</div>
+
+<table>
+  <thead><tr><th>المؤشر</th><th>جهينة</th><th>دانون مصر</th></tr></thead>
+  <tbody>
+    <tr><td>عدد المنافذ التي تصل إليها</td><td>~٢٤٣٬٠٠٠ منفذ</td><td>~١٠٠٬٠٠٠ منفذ (+ ~٥٠٬٠٠٠ ريفي عبر مشروع "العُمدة")</td></tr>
+    <tr><td>مراكز التوزيع</td><td>٣٩</td><td>٣١ (٧ مباشر + ٢٤ غير مباشر)</td></tr>
+    <tr><td>الأسطول</td><td>أكثر من ١٬٠٠٠ سيارة</td><td>أصغر، ويتحول إلى أسطول مبرّد كهربائي</td></tr>
+  </tbody>
+</table>
+<p class="note">المصدر: مواقع الشركتين + تقارير السوق (مذكورة بالمراجع داخل التقرير).</p>
+</section>
+
+<!-- ============ المشكلة ============ -->
+<section id="problem">
+<h1>المشكلة وتعريفها (قلب البحث)</h1>
+<p>في منهج مالهوترا نفرّق بين نوعين من المشكلة، ثم نقسّم المشكلة البحثية إلى <strong>عبارة عامة + مكوّنات محددة</strong>:</p>
+
+<div class="card">
+<h3>١) مشكلة اتخاذ القرار (Management Decision Problem)</h3>
+<p>سؤال موجّه نحو <strong>الفعل</strong>: ماذا ينبغي أن تفعل الإدارة؟</p>
+<p style="font-weight:700;">«هل يجب على دانون مصر توسيع شبكة توزيعها لتنافس تغطية جهينة في سوق الألبان المصري؟»</p>
+</div>
+
+<div class="card">
+<h3>٢) مشكلة البحث التسويقي (Marketing Research Problem)</h3>
+<p>سؤال موجّه نحو <strong>المعلومة</strong>: ما المعلومات التي نحتاجها لمساعدة الإدارة على القرار؟</p>
+<p><strong>العبارة العامة:</strong> تحديد مدى تأثير محدودية توفّر المنتج على قرار شراء المستهلك المصري للزبادي، وعلى تحوّل العملاء عن دانون والمبيعات المفقودة، مع تحديد عوائق التوزيع من وجهة نظر تاجر التجزئة.</p>
+<p><strong>المكوّنات المحددة:</strong></p>
+<ul class="clean">
+  <li><strong>المكوّن ١ – سلوك الشراء والقناة:</strong> أين يشتري الناس الزبادي، وما أهمية توفّره في اختيار العلامة؟</li>
+  <li><strong>المكوّن ٢ – التوفّر المقارن:</strong> كيف يقارن المستهلك توفّر دانون مقابل جهينة وباقي المنافسين؟</li>
+  <li><strong>المكوّن ٣ – المبيعات المفقودة والتحوّل:</strong> كم مرة يتحوّل العميل عن دانون لأنها غير متوفرة، وكم تخسر دانون نتيجة ذلك؟</li>
+  <li><strong>المكوّن ٤ – تقسيم الفجوة:</strong> هل تختلف فجوة التوفّر حسب نوع المنطقة (حضر/ريف) ونوع المتجر؟</li>
+  <li><strong>المكوّن ٥ – عوائق التاجر:</strong> ما الذي يمنع صاحب البقالة من تخزين دانون مقارنة بجهينة (الهامش، زيارات المندوب، التبريد، شروط الدفع)؟</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>٣) الفرضيات (الإجابات المتوقعة التي سنختبرها بالبيانات)</h3>
+<table>
+  <tbody>
+    <tr><td><strong>H1</strong></td><td>توفّر المنتج يؤثر بشكل جوهري على اختيار علامة الزبادي.</td></tr>
+    <tr><td><strong>H2</strong></td><td>توفّر دانون المُدرَك أقل بشكل جوهري من توفّر جهينة.</td></tr>
+    <tr><td><strong>H3</strong></td><td>نسبة معتبرة من المستهلكين تحوّلوا عن دانون لمنافس بسبب عدم توفّرها (مبيعات مفقودة قابلة للقياس).</td></tr>
+    <tr><td><strong>H4</strong></td><td>فجوة التوفّر أكبر في المناطق الريفية وغير الحضرية منها في المدن الكبرى.</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<!-- ============ الفصل 1 ============ -->
+<section id="ch1">
+<h1><span class="chapter-num">١</span> مقدمة في بحوث التسويق</h1>
+<div class="pe">
+<h3>💡 ماذا يقول هذا الفصل ببساطة؟</h3>
+<p>بحث التسويق هو ببساطة <strong>طريقة منظّمة وأمينة لجمع المعلومات واستخدامها لاتخاذ قرار أفضل</strong>، بدل التخمين. خطواته ست: تعريف المشكلة ← وضع المنهج ← تصميم البحث ← جمع البيانات ← تحليلها ← كتابة التقرير وعرضه.</p>
+</div>
+<h3>كيف طبّقناه على دانون؟</h3>
+<ul class="clean">
+  <li>عرّفنا الشركة (دانون) وصناعة الألبان في مصر وحجم السوق (~٢٫٣٧ مليار دولار في ٢٠٢٤).</li>
+  <li>نوع البحث هنا مزيج: <strong>بحث لتحديد مشكلة</strong> (هل هناك فجوة توزيع فعلاً؟) و<strong>بحث لحل مشكلة</strong> (ماذا نفعل حيالها؟).</li>
+  <li>وضّحنا أننا سنسير على الخطوات الست بالترتيب حتى نصل لتوصية واضحة.</li>
+</ul>
+</section>
+
+<!-- ============ الفصل 2 ============ -->
+<section id="ch2">
+<h1><span class="chapter-num">٢</span> تعريف المشكلة ووضع المنهج</h1>
+<div class="pe">
+<h3>💡 ماذا يقول هذا الفصل ببساطة؟</h3>
+<p>أهم خطوة في البحث كله. هنا نفرّق بين <strong>مشكلة القرار</strong> (ماذا تفعل الإدارة؟) و<strong>مشكلة البحث</strong> (ما المعلومة المطلوبة؟)، ونحذر من الخلط بين <strong>العَرَض</strong> (انخفاض المبيعات) و<strong>السبب</strong> (ضعف التوزيع).</p>
+</div>
+<h3>كيف طبّقناه على دانون؟</h3>
+<ul class="clean">
+  <li>العَرَض الظاهر: مبيعات دانون أقل. السبب المُرجَّح: المنتج لا يصل لرفوف البقالات الصغيرة.</li>
+  <li>صغنا <strong>مشكلة القرار</strong> و<strong>مشكلة البحث</strong> (العبارة العامة + ٥ مكوّنات)، كما في قسم «المشكلة» أعلاه.</li>
+  <li>وضعنا <strong>إطاراً نظرياً</strong>: التوزيع (عنصر "المكان") يحوّل تفضيل العلامة إلى شراء فعلي فقط عند توفّر المنتج لحظة القرار. وحدّدنا ٥ أسئلة بحثية و٤ فرضيات.</li>
+</ul>
+</section>
+
+<!-- ============ الفصل 3 ============ -->
+<section id="ch3">
+<h1><span class="chapter-num">٣</span> تصميم البحث والبيانات الثانوية</h1>
+<div class="pe">
+<h3>💡 ماذا يقول هذا الفصل ببساطة؟</h3>
+<p>تصميم البحث هو «الخريطة» التي نتبعها. الأنواع: <strong>استكشافي</strong> (لفهم المشكلة)، و<strong>وصفي</strong> (لقياسها بالأرقام)، و<strong>سببي</strong> (لإثبات أن س يسبب ص). والبيانات الثانوية هي معلومات جاهزة جمعها غيرنا من قبل.</p>
+</div>
+<h3>كيف طبّقناه على دانون؟</h3>
+<ul class="clean">
+  <li>اخترنا <strong>تصميماً مركّباً</strong>: مرحلة <strong>استكشافية</strong> (بيانات ثانوية + مقابلات تجار) لفهم المشكلة، ثم مرحلة <strong>وصفية مقطعية</strong> (استبيان مستهلكين مرة واحدة) لقياسها.</li>
+  <li>جمعنا <strong>بيانات ثانوية</strong> تثبت الفجوة: أرقام منافذ جهينة ودانون، حجم سوق الألبان، نسبة البقالات التقليدية من المبيعات.</li>
+  <li>درسنا التوزيع من <strong>جانب الطلب</strong> (المستهلك والتاجر) حتى يبقى بحثاً تسويقياً لا بحث عمليات.</li>
+</ul>
+</section>
+
+<!-- ============ الفصل 4 ============ -->
+<section id="ch4">
+<h1><span class="chapter-num">٤</span> البحث النوعي (الكيفي)</h1>
+<div class="pe">
+<h3>💡 ماذا يقول هذا الفصل ببساطة؟</h3>
+<p>البحث النوعي يفهم «لماذا» وراء السلوك بكلمات الناس، لا بالأرقام. أشهر أدواته: <strong>المقابلات المتعمّقة</strong> (فرد لفرد) و<strong>مجموعات النقاش</strong>.</p>
+</div>
+<h3>كيف طبّقناه على دانون؟</h3>
+<ul class="clean">
+  <li>أجرينا <strong>مقابلات متعمّقة</strong> مع ٣–٥ من أصحاب البقالات الصغيرة.</li>
+  <li>اخترنا المقابلة الفردية لا مجموعة النقاش لأن التجار منافسون لبعض ومشغولون، والمقابلة الفردية تعطي إجابات أصدق عن التخزين والهوامش والمندوبين.</li>
+  <li>الهدف: معرفة عوائق تخزين دانون مقابل جهينة (المكوّن ٥). الدليل المستخدم متاح للتحميل بالأسفل.</li>
+</ul>
+</section>
+
+<!-- ============ الفصل 5 ============ -->
+<section id="ch5">
+<h1><span class="chapter-num">٥</span> الاستبيان وجمع البيانات والنتائج</h1>
+<div class="pe">
+<h3>💡 ماذا يقول هذا الفصل ببساطة؟</h3>
+<p>الاستبيان هو الأداة الكمية: مجموعة أسئلة منظّمة نوزّعها على عيّنة كبيرة لنحوّل الآراء إلى أرقام يمكن تحليلها واختبار الفرضيات بها.</p>
+</div>
+<h3>كيف طبّقناه على دانون؟</h3>
+<ul class="clean">
+  <li><strong>الأداة:</strong> استبيان إلكتروني (Google Forms) بالعربية يُوزَّع عبر واتساب ووسائل التواصل.</li>
+  <li><strong>لماذا إلكتروني؟</strong> سريع، رخيص، وصول جغرافي واسع، وبلا تحيّز من المُحاوِر. عيبه أنه يميل للفئات المتصلة بالإنترنت/الحضر، ونوازن ذلك بمقابلات التجار.</li>
+  <li><strong>العيّنة المستهدفة:</strong> ١٠٠–١٥٠ من مستهلكي الزبادي، عبر محافظات وأنواع مناطق مختلفة، بأسلوب <strong>الراحة + كرة الثلج</strong> (نذكره بصراحة كقيد على البحث).</li>
+  <li>الأسئلة مصمّمة لتختبر الفرضيات H1–H4 مباشرة، والنتائج والرسوم البيانية تُضاف بعد إغلاق الاستبيان.</li>
+</ul>
+
+<div class="survey-cta">
+  <p style="font-weight:700; font-size:1.1rem; margin:0;">📋 شارك في الاستبيان (دقيقتان)</p>
+  <p class="note" style="margin:.3rem 0;">الرابط نفسه الذي نوزّعه على المشاركين</p>
+  <a class="big" href="https://docs.google.com/forms/d/e/1FAIpQLScVPcKU_uUco7wkGoxi-1Q1cWAMERAO0ZktjXhLDSeKuEVD8Q/viewform" target="_blank" rel="noopener">افتح الاستبيان ←</a>
+</div>
+</section>
+
+<!-- ============ التحميلات ============ -->
+<section id="files">
+<h1>تحميل كل ملفات البحث</h1>
+<p>كل ملفات المشروع متاحة هنا مباشرة. ملفات Word و PowerPoint للتعديل، وملفات PDF للعرض السريع على أي جهاز.</p>
+
+<div class="downloads">
+
+  <div class="dl highlight">
+    <div class="icon">📄</div>
+    <div class="title">التقرير الكامل — النسخة المنقّحة (v2)</div>
+    <div class="desc">النسخة الأحدث، تتضمن العبارة العامة لمشكلة البحث + المكوّنات المحددة الخمسة بشكل صريح. ١٥ صفحة، ٦ فصول، بالإنجليزية مع مراجع مرقّمة.</div>
+    <div class="btns">
+      <a class="btn" href="files/Danone_Report_v2_revised.docx" download>Word</a>
+      <a class="btn alt" href="files/Danone_Report_v2_revised.pdf" target="_blank">PDF</a>
+    </div>
+  </div>
+
+  <div class="dl">
+    <div class="icon">📄</div>
+    <div class="title">التقرير الكامل — النسخة الأصلية (v1)</div>
+    <div class="desc">النسخة الأولى قبل إضافة قسم المكوّنات الصريح. محفوظة للرجوع والمقارنة.</div>
+    <div class="btns">
+      <a class="btn" href="files/Danone_Report_v1_original.docx" download>Word</a>
+      <a class="btn alt" href="files/Danone_Report_v1_original.pdf" target="_blank">PDF</a>
+    </div>
+  </div>
+
+  <div class="dl">
+    <div class="icon">📊</div>
+    <div class="title">العرض التقديمي (PowerPoint)</div>
+    <div class="desc">١٥ شريحة تلخّص المشروع كاملاً، بثيم كحلي/أزرق. جاهزة للعرض أمام الدكتور.</div>
+    <div class="btns">
+      <a class="btn" href="files/Danone_Presentation.pptx" download>PowerPoint</a>
+      <a class="btn alt" href="files/Danone_Presentation.pdf" target="_blank">PDF</a>
+    </div>
+  </div>
+
+  <div class="dl">
+    <div class="icon">📝</div>
+    <div class="title">دليل مقابلة التجار (الفصل ٤)</div>
+    <div class="desc">أسئلة المقابلة المتعمّقة مع أصحاب البقالات، جاهزة للطباعة والاستخدام الميداني.</div>
+    <div class="btns">
+      <a class="btn" href="files/Retailer_Interview_Guide.docx" download>Word</a>
+      <a class="btn alt" href="files/Retailer_Interview_Guide.pdf" target="_blank">PDF</a>
+    </div>
+  </div>
+
+  <div class="dl">
+    <div class="icon">📋</div>
+    <div class="title">استبيان المستهلكين (الفصل ٥)</div>
+    <div class="desc">نموذج Google Forms حي بالعربية. هذا الرابط هو الذي يُوزَّع على المشاركين لجمع الردود.</div>
+    <div class="btns">
+      <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScVPcKU_uUco7wkGoxi-1Q1cWAMERAO0ZktjXhLDSeKuEVD8Q/viewform" target="_blank" rel="noopener">افتح الاستبيان</a>
+    </div>
+  </div>
+
+</div>
+<p class="note">ملاحظة: رابط <strong>تعديل</strong> الاستبيان وعرض الردود متاح لصاحب الحساب فقط (لا يُنشر هنا لأسباب الخصوصية).</p>
+</section>
+
+<footer>
+  <p>مشروع بحوث التسويق — دانون مصر · مبني على منهج مالهوترا (Essentials of Marketing Research, 1E).</p>
+  <p>للاطلاع على ملخص الفصول الخمسة للمادة نفسها: <a href="https://amsamms.github.io/marketing-research-portal/" target="_blank" rel="noopener">بوابة المذاكرة (Study Portal)</a>.</p>
+</footer>
+
+<script>
+function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+(function(){
+  var b = document.getElementById('themeToggle');
+  function paint(){ b.textContent = isDark() ? '☀️ الوضع النهاري' : '🌙 الوضع الليلي'; }
+  paint();
+  b.addEventListener('click', function(){
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('danone-theme', next); } catch(e){}
+    paint();
+  });
+})();
+document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+</script>
+</body>
+</html>
